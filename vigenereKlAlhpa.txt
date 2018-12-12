@@ -1,0 +1,103 @@
+import java.util.Scanner; 
+
+public class vigenere 
+{
+  
+public static void main(String[] args) 
+{
+System.out.print( "(V)Verschluesseln oder (E)Entschluesseln"); 
+Scanner scan = new Scanner(System.in); 
+String input = scan.nextLine();  
+
+
+if(input.equals("E")){
+
+ System.out.println( "Bitte Schluessel eingeben");
+String key = scan.nextLine();
+ System.out.println( "Bitte kryptext eingeben");
+String text = scan.nextLine();
+System.out.println(text);
+int textlaenge = text.length();
+int keylaenge = key.length();
+int keycounter = 0;
+while (textlaenge > keylaenge){
+keycounter++;
+textlaenge -= keylaenge;
+}
+System.out.println(keycounter + " ist der Keycounter");
+String fertigkey = "";
+while (keycounter != 0){
+fertigkey += key;
+keycounter--;
+}
+fertigkey += key.substring(0,textlaenge);
+System.out.println(fertigkey + " ist der fertigkey");
+//key auf laenge des texts gebracht
+int doku = fertigkey.length();
+int count = 0;
+String kryptext = "";
+int textchar = 0;
+while ( count < doku ){
+textchar = (int) text.charAt(count);
+int keychar = (int) fertigkey.charAt(count) - 97;
+if(textchar - keychar >= 97){
+textchar -= keychar;
+}else{
+textchar -= keychar;
+textchar += 26;
+} 
+kryptext += (char) textchar;
+count++;
+System.out.println(count);
+}  
+
+
+ System.out.println(kryptext + " ist der entschluesselte Text");
+
+
+
+
+
+}else if (input.equals("V")){
+ System.out.print( "Bitte Schluessel eingeben");
+String key = scan.nextLine();
+ System.out.println( "Bitte Plaintext eingeben");
+String text = scan.nextLine();
+int textlaenge = text.length();
+int keylaenge = key.length();
+int keycounter = 0;
+while (textlaenge > keylaenge){
+keycounter++;
+textlaenge -= keylaenge;
+}
+String fertigkey = "";
+while (keycounter != 0){
+fertigkey += key;
+keycounter--;
+}
+fertigkey += key.substring(0,textlaenge);
+//key auf laenge des texts gebracht
+int doku = fertigkey.length();
+int count = 0;
+String kryptext = "";
+int textchar = 0;
+while ( count < doku ){
+textchar = (int) text.charAt(count);
+int keychar = (int) fertigkey.charAt(count) - 97;
+if(textchar + keychar <= 122){
+textchar += keychar;
+}else{
+textchar += keychar - 26;
+} 
+kryptext += (char) textchar;
+count++;
+System.out.println(count);
+}  
+
+
+ System.out.println(kryptext + " ist der verschluesselte Text");
+  } //endOfVerschlüsselung
+}//endOfMain
+
+
+}//endOfClass
